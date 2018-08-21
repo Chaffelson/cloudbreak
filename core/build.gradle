@@ -209,8 +209,10 @@ dependencies {
   runtime project(':cloud-azure')
   runtime project(':cloud-yarn')
   runtime project(':cloud-cumulus-yarn')
+    runtime project(':cloud-k8s')
 
-  runtime group: 'activation',                    name: 'activation'
+
+    runtime group: 'activation',                    name: 'activation'
 
   testCompile project(path: ':core-model', configuration: 'tests')
 

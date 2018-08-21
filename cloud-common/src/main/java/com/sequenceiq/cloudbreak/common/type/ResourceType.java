@@ -48,6 +48,9 @@ public enum ResourceType {
     // CUMULUS_YARN
     CUMULUS_YARN_SERVICE(CommonResourceType.TEMPLATE),
 
+    // K8S
+    K8S_APPLICATION(CommonResourceType.TEMPLATE),
+
     // MOCK
     MOCK_INSTANCE;
 

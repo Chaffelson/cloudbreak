@@ -13,6 +13,9 @@ public class CloudConstants {
 
     public static final String CUMULUS_YARN = "CUMULUS_YARN";
 
+    public static final String K8S = "K8S";
+
+
     private CloudConstants() {
     }
 }

@@ -95,6 +95,11 @@ cb:
     defaultQueue: "default"
     defaultLifeTime: -1
 
+  k8s:
+    domain: default.com
+    defaultNameSpace: "default"
+    defaultLifeTime: -1
+
   blueprint:
      defaults: "EDW-ETL: Apache Hive, Apache Spark 2=hdp26-etl-edw-spark2;EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin=hdp26-edw-analytics;Data Science: Apache Spark 2, Apache Zeppelin=hdp26-data-science-spark2;Flow Management: Apache NiFi, Apache NiFi Registry=hdf31-flow-management;Messaging Management: Apache Kafka=hdf31-messaging-kafka;Data Lake: Apache Ranger, Apache Atlas, Apache Hive Metastore=hdp26-shared-services;HDP 3.0 - Data Science: Apache Spark 2, Apache Zeppelin=hdp30-data-science-spark2;HDP 3.0 - EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin=hdp30-edw-analytics"
      internal: "HDP 3.0 - Data Lake: Apache Ranger, Apache Hive Metastore=hdp30-shared-services"
@@ -132,6 +137,7 @@ cb:
     aws.resource.name.length: 50
     openstack.resource.name.length: 120
     yarn.resource.name.length: 120
+    k8s.resource.name.length: 120
 
     salt.new.service.retry: 90
     salt.recipe.execution.retry: 90
@@ -143,7 +149,7 @@ cb:
 
   platform.default:
     variants: OPENSTACK:HEAT
-    regions: AWS:eu-west-1,AZURE:North Europe,GCP:europe-west1,YARN:default,CUMULUS_YARN:default,MOCK:USA
+    regions: AWS:eu-west-1,AZURE:North Europe,GCP:europe-west1,YARN:default,CUMULUS_YARN:default,K8S:default,MOCK:USA
 
   gcp:
     hostkey.verify: false

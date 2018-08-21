@@ -1,6 +1,11 @@
 {%- from 'consul/settings.sls' import consul with context %}
 {%- from 'ambari/settings.sls' import ambari with context %}
 
+/etc/resolv.conf:
+  file.managed:
+    - source: salt://unbound/config/resolv.conf
+    - template: jinja
+
 /etc/unbound/conf.d/01-consul.conf:
   file.managed:
     - makedirs: True
