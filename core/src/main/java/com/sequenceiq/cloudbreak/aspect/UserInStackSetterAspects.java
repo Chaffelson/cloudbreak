@@ -11,8 +11,10 @@ import org.springframework.stereotype.Component;
 
 import com.sequenceiq.cloudbreak.common.model.user.IdentityUser;
 import com.sequenceiq.cloudbreak.common.service.user.UserFilterField;
+import com.sequenceiq.cloudbreak.domain.organization.Organization;
 import com.sequenceiq.cloudbreak.domain.organization.User;
 import com.sequenceiq.cloudbreak.domain.stack.Stack;
+import com.sequenceiq.cloudbreak.service.organization.OrganizationService;
 import com.sequenceiq.cloudbreak.service.user.CachedUserDetailsService;
 import com.sequenceiq.cloudbreak.service.user.UserService;
 
@@ -26,6 +28,9 @@ public class UserInStackSetterAspects {
     @Inject
     private UserService userService;
 
+    @Inject
+    private OrganizationService organizationService;
+
     @Pointcut("execution(public * com.sequenceiq.cloudbreak.repository.StackRepository+.*(..))")
     public void interceptStackMethod() {
     }
@@ -33,11 +38,17 @@ public class UserInStackSetterAspects {
     @AfterReturning(pointcut = "com.sequenceiq.cloudbreak.aspect.UserInStackSetterAspects.interceptStackMethod()", returning = "result")
     public void setUserInStack(Object result) {
         Stack stack = getStackByResult(result);
-        if (stack != null && stack.getCreator() == null) {
-            IdentityUser identityUser = cachedUserDetailsService.getDetails(stack.getOwner(),
-                    UserFilterField.USERID);
-            User user = userService.getOrCreate(identityUser);
-            stack.setCreator(user);
+        if (stack != null) {
+            if (stack.getCreator() == null) {
+                IdentityUser identityUser = cachedUserDetailsService.getDetails(stack.getOwner(),
+                        UserFilterField.USERID);
+                User user = userService.getOrCreate(identityUser);
+                stack.setCreator(user);
+            }
+            if (stack.getOrganization() == null) {
+                Organization organization = organizationService.getDefaultOrganizationForUser(stack.getCreator());
+                stack.setOrganization(organization);
+            }
         }
     }
 

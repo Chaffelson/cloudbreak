@@ -56,6 +56,9 @@ public class FileSystem implements ProvisionEntity, OrganizationAwareResource {
     @ManyToOne
     private Organization organization;
 
+    @Column
+    private boolean publicInAccount = false;
+
     public Organization getOrganization() {
         return organization;
     }
@@ -139,5 +142,10 @@ public class FileSystem implements ProvisionEntity, OrganizationAwareResource {
 
     public void setConfigurations(Json configurations) {
         this.configurations = configurations;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

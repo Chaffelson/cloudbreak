@@ -12,4 +12,10 @@ public interface OrganizationAwareResource {
     void setOrganization(Organization organization);
 
     OrganizationResource getResource();
+
+    boolean isPublicInAccount();
+
+    String getAccount();
+
+    String getOwner();
 }

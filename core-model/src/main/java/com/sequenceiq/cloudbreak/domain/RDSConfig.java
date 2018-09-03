@@ -63,6 +63,8 @@ public class RDSConfig implements ProvisionEntity, OrganizationAwareResource {
 
     private String account;
 
+    private boolean publicInAccount = false;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ResourceStatus status;
@@ -210,5 +212,10 @@ public class RDSConfig implements ProvisionEntity, OrganizationAwareResource {
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.RDS;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

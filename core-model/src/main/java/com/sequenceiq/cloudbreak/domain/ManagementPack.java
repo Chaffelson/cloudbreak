@@ -32,6 +32,8 @@ public class ManagementPack implements ProvisionEntity, OrganizationAwareResourc
 
     private String account;
 
+    private boolean publicInAccount = false;
+
     @Column(nullable = false)
     private String mpackUrl;
 
@@ -127,5 +129,10 @@ public class ManagementPack implements ProvisionEntity, OrganizationAwareResourc
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.MPACK;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

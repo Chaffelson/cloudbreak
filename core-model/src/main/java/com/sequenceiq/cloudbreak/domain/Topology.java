@@ -46,6 +46,15 @@ public class Topology implements ProvisionEntity, OrganizationAwareResource {
     @ManyToOne
     private Organization organization;
 
+    @Column
+    private String account;
+
+    @Column
+    private String owner;
+
+    @Column
+    private boolean publicInAccount = false;
+
     public Organization getOrganization() {
         return organization;
     }
@@ -105,5 +114,20 @@ public class Topology implements ProvisionEntity, OrganizationAwareResource {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
+    }
+
+    @Override
+    public String getAccount() {
+        return account;
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
     }
 }

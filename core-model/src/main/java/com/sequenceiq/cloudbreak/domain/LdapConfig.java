@@ -38,6 +38,13 @@ public class LdapConfig implements ProvisionEntity, OrganizationAwareResource {
 
     private String owner;
 
+    private boolean publicInAccount = false;
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
+    }
+
     @Column(nullable = false)
     private String serverHost;
 

@@ -549,4 +549,13 @@ public class Cluster implements ProvisionEntity, OrganizationAwareResource {
     public OrganizationResource getResource() {
         return OrganizationResource.STACK;
     }
+
+    @Override
+    public boolean isPublicInAccount() {
+        if (stack != null) {
+            return stack.isPublicInAccount();
+        } else {
+            return false;
+        }
+    }
 }

@@ -2,9 +2,11 @@ package com.sequenceiq.cloudbreak.service.organization;
 
 import java.util.Set;
 
+import com.sequenceiq.cloudbreak.authorization.OrganizationResource;
 import com.sequenceiq.cloudbreak.domain.organization.Organization;
 import com.sequenceiq.cloudbreak.domain.organization.OrganizationAwareResource;
 import com.sequenceiq.cloudbreak.domain.organization.User;
+import com.sequenceiq.cloudbreak.repository.organization.OrganizationResourceRepository;
 
 public interface OrganizationAwareResourceService<T extends OrganizationAwareResource> {
 
@@ -23,4 +25,8 @@ public interface OrganizationAwareResourceService<T extends OrganizationAwareRes
     T delete(T resource);
 
     T deleteByNameFromOrganization(String name, Long organizationId);
+
+    OrganizationResourceRepository<T, Long> repository();
+
+    OrganizationResource resource();
 }

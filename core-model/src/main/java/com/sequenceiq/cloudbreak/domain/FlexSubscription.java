@@ -46,6 +46,9 @@ public class FlexSubscription implements ProvisionEntity, OrganizationAwareResou
     @ManyToOne
     private Organization organization;
 
+    @Column
+    private boolean publicInAccount = false;
+
     public Organization getOrganization() {
         return organization;
     }
@@ -131,5 +134,10 @@ public class FlexSubscription implements ProvisionEntity, OrganizationAwareResou
                 + ", smartSenseSubscription='" + smartSenseSubscription + '\''
                 + ", owner='" + owner + '\''
                 + ", account='" + account + '}';
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

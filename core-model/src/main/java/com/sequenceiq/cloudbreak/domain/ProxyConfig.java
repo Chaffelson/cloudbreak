@@ -54,6 +54,8 @@ public class ProxyConfig implements ProvisionEntity, OrganizationAwareResource {
     @ManyToOne
     private Organization organization;
 
+    private boolean publicInAccount = false;
+
     public Long getId() {
         return id;
     }
@@ -147,5 +149,10 @@ public class ProxyConfig implements ProvisionEntity, OrganizationAwareResource {
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.PROXY;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

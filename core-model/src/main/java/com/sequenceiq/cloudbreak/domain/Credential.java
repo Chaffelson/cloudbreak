@@ -52,6 +52,9 @@ public class Credential implements ProvisionEntity, OrganizationAwareResource {
     @ManyToOne
     private Organization organization;
 
+    @Column
+    private boolean publicInAccount = false;
+
     public Long getId() {
         return id;
     }
@@ -135,5 +138,10 @@ public class Credential implements ProvisionEntity, OrganizationAwareResource {
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.CREDENTIAL;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

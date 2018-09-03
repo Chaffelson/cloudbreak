@@ -49,6 +49,9 @@ public class Blueprint implements ProvisionEntity, OrganizationAwareResource {
 
     private String account;
 
+    @Column
+    private boolean publicInAccount = false;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ResourceStatus status;
@@ -163,5 +166,10 @@ public class Blueprint implements ProvisionEntity, OrganizationAwareResource {
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.BLUEPRINT;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

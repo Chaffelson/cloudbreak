@@ -54,6 +54,12 @@ public class Network implements ProvisionEntity, OrganizationAwareResource {
     @ManyToOne
     private Organization organization;
 
+    private String owner;
+
+    private String account;
+
+    private boolean publicInAccount = false;
+
     public Organization getOrganization() {
         return organization;
     }
@@ -129,5 +135,20 @@ public class Network implements ProvisionEntity, OrganizationAwareResource {
 
     public void setTopology(Topology topology) {
         this.topology = topology;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
+    }
+
+    @Override
+    public String getAccount() {
+        return account;
     }
 }

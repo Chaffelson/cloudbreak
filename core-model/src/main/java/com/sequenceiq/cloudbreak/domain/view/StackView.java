@@ -33,6 +33,8 @@ public class StackView implements ProvisionEntity, OrganizationAwareResource {
 
     private String owner;
 
+    private String account;
+
     @OneToOne(mappedBy = "stack")
     private ClusterView cluster;
 
@@ -55,13 +57,16 @@ public class StackView implements ProvisionEntity, OrganizationAwareResource {
     @ManyToOne
     private Organization organization;
 
+    private boolean publicInAccount = false;
+
     public StackView() {
     }
 
-    public StackView(Long id, String name, String owner, String cloudPlatform, StackStatusView stackStatus) {
+    public StackView(Long id, String name, String owner, String account, String cloudPlatform, StackStatusView stackStatus) {
         this.id = id;
         this.name = name;
         this.owner = owner;
+        this.account = account;
         this.cloudPlatform = cloudPlatform;
         this.stackStatus = stackStatus;
     }
@@ -143,5 +148,15 @@ public class StackView implements ProvisionEntity, OrganizationAwareResource {
 
     public boolean isStackInDeletionPhase() {
         return DELETE_COMPLETED.equals(getStatus()) || DELETE_IN_PROGRESS.equals(getStatus());
+    }
+
+    @Override
+    public String getAccount() {
+        return account;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

@@ -84,6 +84,9 @@ public class Stack implements ProvisionEntity, OrganizationAwareResource {
 
     private String account;
 
+    @Column
+    private boolean publicInAccount = false;
+
     @Column(nullable = false)
     private String region;
 
@@ -671,5 +674,13 @@ public class Stack implements ProvisionEntity, OrganizationAwareResource {
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.STACK;
+    }
+
+    public boolean isPublicInAccount() {
+        return publicInAccount;
+    }
+
+    public void setPublicInAccount(boolean publicInAccount) {
+        this.publicInAccount = publicInAccount;
     }
 }

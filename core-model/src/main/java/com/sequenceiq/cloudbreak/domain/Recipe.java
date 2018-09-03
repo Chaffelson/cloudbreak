@@ -47,6 +47,8 @@ public class Recipe implements ProvisionEntity, OrganizationAwareResource {
 
     private String owner;
 
+    private boolean publicInAccount = false;
+
     @ManyToOne
     private Organization organization;
 
@@ -128,5 +130,10 @@ public class Recipe implements ProvisionEntity, OrganizationAwareResource {
     @Override
     public OrganizationResource getResource() {
         return OrganizationResource.RECIPE;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

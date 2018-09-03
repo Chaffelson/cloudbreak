@@ -60,6 +60,9 @@ public class UserProfileService {
         } else if (userProfile.getUserName() == null && userName != null) {
             userProfile.setUserName(userName);
             userProfile = userProfileRepository.save(userProfile);
+        } else if (userProfile.getUser() == null) {
+            userProfile.setUser(user);
+            userProfileRepository.save(userProfile);
         }
         return userProfile;
     }

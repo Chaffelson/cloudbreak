@@ -58,6 +58,9 @@ public class ConstraintTemplate implements ProvisionEntity, OrganizationAwareRes
     @ManyToOne
     private Organization organization;
 
+    @Column
+    private boolean publicInAccount = false;
+
     @Override
     public Organization getOrganization() {
         return organization;
@@ -159,5 +162,10 @@ public class ConstraintTemplate implements ProvisionEntity, OrganizationAwareRes
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return publicInAccount;
     }
 }

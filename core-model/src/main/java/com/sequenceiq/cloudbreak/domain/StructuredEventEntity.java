@@ -24,6 +24,7 @@ import com.sequenceiq.cloudbreak.structuredevent.event.StructuredEventType;
 @Entity
 @Table(name = "structuredevent")
 public class StructuredEventEntity implements OrganizationAwareResource {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "structuredevent_generator")
     @SequenceGenerator(name = "structuredevent_generator", sequenceName = "structuredevent_id_seq", allocationSize = 1)
@@ -149,5 +150,10 @@ public class StructuredEventEntity implements OrganizationAwareResource {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean isPublicInAccount() {
+        return true;
     }
 }
