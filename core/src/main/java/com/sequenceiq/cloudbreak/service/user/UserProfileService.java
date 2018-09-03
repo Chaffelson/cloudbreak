@@ -3,6 +3,7 @@ package com.sequenceiq.cloudbreak.service.user;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -13,10 +14,12 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.Sets;
 import com.sequenceiq.cloudbreak.api.model.users.UserProfileRequest;
 import com.sequenceiq.cloudbreak.common.model.user.IdentityUser;
 import com.sequenceiq.cloudbreak.controller.exception.BadRequestException;
 import com.sequenceiq.cloudbreak.domain.Credential;
+import com.sequenceiq.cloudbreak.domain.DefaultCredential;
 import com.sequenceiq.cloudbreak.domain.ImageCatalog;
 import com.sequenceiq.cloudbreak.domain.UserProfile;
 import com.sequenceiq.cloudbreak.domain.json.Json;
@@ -96,10 +99,10 @@ public class UserProfileService {
         UserProfile userProfile = getOrCreate(identityUser.getAccount(), identityUser.getUserId(), identityUser.getUsername(), user);
         if (request.getCredentialId() != null) {
             Credential credential = credentialService.get(request.getCredentialId(), organization);
-            userProfile.setCredential(credential);
+            storeDefaultCredential(userProfile, credential);
         } else if (request.getCredentialName() != null) {
             Credential credential = credentialService.getByNameForOrganization(request.getCredentialName(), organization);
-            userProfile.setCredential(credential);
+            storeDefaultCredential(userProfile, credential);
         }
         if (request.getImageCatalogName() != null) {
             Long organizationId = organization.getId();
@@ -119,5 +122,23 @@ public class UserProfileService {
             }
         }
         userProfileRepository.save(userProfile);
+    }
+
+    private void storeDefaultCredential(UserProfile userProfile, Credential credential) {
+        Optional<DefaultCredential> foundCredential = userProfile.getDefaultCredentials().
+                stream().
+                filter(defaultCredential -> defaultCredential.getCredential().getId().equals(credential.getId()))
+                .findFirst();
+        if (foundCredential.isPresent()) {
+            userProfile.getDefaultCredentials().remove(foundCredential.get());
+        }
+        DefaultCredential defaultCredential = new DefaultCredential();
+        defaultCredential.setUserProfile(userProfile);
+        defaultCredential.setCredential(credential);
+        if (userProfile.getDefaultCredentials() != null) {
+            userProfile.setDefaultCredentials(Sets.newHashSet(defaultCredential));
+        } else {
+            userProfile.getDefaultCredentials().add(defaultCredential);
+        }
     }
 }
